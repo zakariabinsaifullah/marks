@@ -1,54 +1,44 @@
 import { __ } from '@wordpress/i18n';
 import { InspectorControls } from '@wordpress/block-editor';
-import { PanelBody, RangeControl } from '@wordpress/components';
+import { PanelBody, RangeControl, ToggleControl } from '@wordpress/components';
 import { useEffect } from '@wordpress/element';
 
-import {
-    NativeResponsiveControl,
-    NativeUnitControl,
-    NativeSelectControl,
-    NativeTextareaControl,
-} from '../../components';
+import { NativeResponsiveControl, NativeUnitControl, NativeSelectControl, NativeTextareaControl } from '../../components';
 
 export default function Inspector(props) {
     const { attributes, setAttributes } = props;
-    const {
-        columns,
-        resMode,
-        gap,
-        rowGap,
-        orderBy,
-        selectedIds,
-        cardStyle,
-        imageTextGap,
-    } = attributes;
+    const { columns, resMode, gap, rowGap, orderBy, selectedIds, descSource, showButton } = attributes;
 
     useEffect(() => {
         setAttributes({
             blockStyle: {
                 ...(columns.Desktop !== 2 && { '--dcols': String(columns.Desktop) }),
-                ...(columns.Tablet !== 2  && { '--tcols': String(columns.Tablet) }),
-                ...(columns.Mobile !== 1  && { '--mcols': String(columns.Mobile) }),
-                ...(gap          && { '--gap': gap }),
-                ...(rowGap       && { '--row-gap': rowGap }),
-                ...(imageTextGap && { '--image-text-gap': imageTextGap }),
+                ...(columns.Tablet !== 2 && { '--tcols': String(columns.Tablet) }),
+                ...(columns.Mobile !== 1 && { '--mcols': String(columns.Mobile) }),
+                ...(gap && { '--gap': gap }),
+                ...(rowGap && { '--row-gap': rowGap })
             }
         });
-    }, [ columns, gap, rowGap, imageTextGap ]);
+    }, [columns, gap, rowGap]);
 
     return (
         <>
             <InspectorControls>
-                <PanelBody title={__('Card Style', 'marks')}>
+                <PanelBody title={__('Card', 'marks')}>
                     <NativeSelectControl
-                        label={__('Style', 'marks')}
-                        value={cardStyle}
-                        onChange={value => setAttributes({ cardStyle: value })}
+                        label={__('Description', 'marks')}
+                        value={descSource}
+                        onChange={value => setAttributes({ descSource: value })}
                         options={[
-                            { label: __('Style 1 — Overlay', 'marks'),     value: 'style1' },
-                            { label: __('Style 2 — Below Image', 'marks'), value: 'style2' },
+                            { label: __('Professional Background', 'marks'), value: 'background' },
+                            { label: __('Excerpt', 'marks'), value: 'excerpt' }
                         ]}
                         mb={0}
+                    />
+                    <ToggleControl
+                        label={__('Show Button', 'marks')}
+                        checked={showButton}
+                        onChange={value => setAttributes({ showButton: value })}
                     />
                 </PanelBody>
 
@@ -62,12 +52,7 @@ export default function Inspector(props) {
                             __next40pxDefaultSize
                         />
                     </NativeResponsiveControl>
-                    <NativeUnitControl
-                        label={__('Gap', 'marks')}
-                        value={gap}
-                        onChange={value => setAttributes({ gap: value })}
-                        mb={0}
-                    />
+                    <NativeUnitControl label={__('Gap', 'marks')} value={gap} onChange={value => setAttributes({ gap: value })} mb="16px" />
                     <NativeUnitControl
                         label={__('Row Gap', 'marks')}
                         value={rowGap}
@@ -76,27 +61,16 @@ export default function Inspector(props) {
                     />
                 </PanelBody>
 
-                { cardStyle === 'style2' && (
-                    <PanelBody title={__('Style 2', 'marks')} initialOpen={false}>
-                        <NativeUnitControl
-                            label={__('Image to Text Gap', 'marks')}
-                            value={imageTextGap}
-                            onChange={value => setAttributes({ imageTextGap: value })}
-                            mb={0}
-                        />
-                    </PanelBody>
-                )}
-
                 <PanelBody title={__('Query', 'marks')} initialOpen={false}>
                     <NativeSelectControl
                         label={__('Order By', 'marks')}
                         value={orderBy}
                         onChange={value => setAttributes({ orderBy: value })}
                         options={[
-                            { label: __('Menu Order', 'marks'),    value: 'menu_order' },
+                            { label: __('Menu Order', 'marks'), value: 'menu_order' },
                             { label: __('Date (newest)', 'marks'), value: 'date' },
-                            { label: __('Name (A – Z)', 'marks'),  value: 'title' },
-                            { label: __('Random', 'marks'),        value: 'rand' },
+                            { label: __('Name (A – Z)', 'marks'), value: 'title' },
+                            { label: __('Random', 'marks'), value: 'rand' }
                         ]}
                     />
                     <NativeTextareaControl

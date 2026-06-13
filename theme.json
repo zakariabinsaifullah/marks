@@ -19,36 +19,6 @@
                     "gradient": "linear-gradient(180deg, rgba(242, 234, 215, 0.7) 66.33%, rgba(217, 194, 129, 0.7) 94.56%)",
                     "name": "Roti Gradient",
                     "slug": "marks-roti-gradient"
-                },
-                {
-                    "gradient": "radial-gradient(164.05% 124.18% at 50% 124.18%, #000000 1.44%, #7A1E2B 10.58%, rgba(0, 0, 0, 0) 55.77%, rgba(0, 0, 0, 0) 100%)",
-                    "name": "Gradient Background",
-                    "slug": "marks-gradient-background"
-                },
-                {
-                    "gradient": "radial-gradient(104.44% 357.81% at 6.11% 44.67%, rgba(0, 0, 0, 0.8) 45.67%, rgba(122, 30, 43, 0.8) 100%)",
-                    "name": "Radial Gradient",
-                    "slug": "marks-radial-gradient"
-                },
-                {
-                    "gradient": "radial-gradient(164.05% 124.18% at 50% 124.18%, #000000 1.44%, #7A1E2B 10.58%, rgba(0, 0, 0, 0) 55.77%, rgba(0, 0, 0, 0) 100%)",
-                    "name": "Radial Gradient 2",
-                    "slug": "marks-radial-gradient-2"
-                },
-                {
-                    "gradient": "linear-gradient(180deg, #9D272D 6.73%, #6C080A 54%, rgba(221, 66, 66, 0) 100%)",
-                    "name": "Linear Gradient",
-                    "slug": "marks-linear-gradient"
-                },
-                {
-                    "gradient": "linear-gradient(90.21deg, #191919 44.34%, #7A1E2B 99.76%)",
-                    "name": "Linear Gradient 2",
-                    "slug": "marks-linear-gradient-2"
-                },
-                {
-                    "gradient": "linear-gradient(180deg, #FFFFFF 0%, #FFFFFF 0%, rgba(221, 66, 66, 0.20) 100%)",
-                    "name": "Linear",
-                    "slug": "marks-linear"
                 }
             ],
             "palette": [

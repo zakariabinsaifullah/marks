@@ -7,13 +7,12 @@
  * @var WP_Block $block      Block instance.
  */
 
-// ── Resolve attributes ─────────────────────────────────────────────────────────
-$order_by     = $attributes['orderBy']    ?? 'menu_order';
+$order_by     = $attributes['orderBy']     ?? 'menu_order';
 $selected_ids = $attributes['selectedIds'] ?? '';
-$block_style  = $attributes['blockStyle'] ?? [];
-$card_style   = $attributes['cardStyle']  ?? 'style1';
+$desc_source  = $attributes['descSource']   ?? 'background';
+$show_button  = $attributes['showButton']   ?? false;
+$block_style  = $attributes['blockStyle']   ?? [];
 
-// Parse comma-separated IDs into a clean array of positive integers.
 $post_in = [];
 if ( ! empty( trim( $selected_ids ) ) ) {
 	$post_in = array_values(
@@ -24,7 +23,6 @@ if ( ! empty( trim( $selected_ids ) ) ) {
 	);
 }
 
-// ── Build the wrapper inline style from CSS custom properties ──────────────────
 $style_parts = [];
 foreach ( $block_style as $property => $value ) {
 	if ( ! empty( $value ) ) {
@@ -37,7 +35,6 @@ $wrapper_attributes = get_block_wrapper_attributes(
 	! empty( $inline_style ) ? [ 'style' => $inline_style ] : []
 );
 
-// ── Query team members ─────────────────────────────────────────────────────────
 $query_args = [
 	'post_type'      => 'marks-team',
 	'posts_per_page' => -1,
@@ -72,42 +69,31 @@ if ( ! $members_query->have_posts() ) {
 			$post_id     = get_the_ID();
 			$name        = get_the_title();
 			$designation = get_post_meta( $post_id, '_team_designation', true );
-			$image_url   = get_the_post_thumbnail_url( $post_id, 'medium' );
-			$image_alt   = get_post_meta( get_post_thumbnail_id( $post_id ), '_wp_attachment_image_alt', true ) ?: $name;
+			$permalink   = get_permalink( $post_id );
+
+			if ( 'excerpt' === $desc_source ) {
+				$description = has_excerpt( $post_id ) ? get_the_excerpt( $post_id ) : '';
+			} else {
+				$description = get_post_meta( $post_id, '_team_background', true );
+			}
+
+			$image_url = get_the_post_thumbnail_url( $post_id, 'medium' );
+			$image_alt = get_post_meta( get_post_thumbnail_id( $post_id ), '_wp_attachment_image_alt', true ) ?: $name;
 		?>
 
-		<article class="marks-team-card marks-team-card--<?php echo esc_attr( $card_style ); ?>">
+		<a href="<?php echo esc_url( $permalink ); ?>" class="marks-team-card">
+			<?php if ( has_post_thumbnail() ) : ?>
 			<div class="marks-team-card__image-wrap">
-
-				<?php if ( has_post_thumbnail() ) : ?>
 				<img
 					src="<?php echo esc_url( $image_url ); ?>"
 					alt="<?php echo esc_attr( $image_alt ); ?>"
 					class="marks-team-card__image"
 					loading="lazy"
 				>
-				<?php endif; ?>
-
-				<?php if ( 'style1' === $card_style ) : ?>
-				<div class="marks-team-card__info-overlay">
-					<div class="marks-team-card__info-text">
-						<div class="marks-team-card__info-left">
-							<h3 class="marks-team-card__name">
-								<?php echo esc_html( $name ); ?>
-							</h3>
-							<?php if ( $designation ) : ?>
-							<p class="marks-team-card__designation">
-								<?php echo esc_html( $designation ); ?>
-							</p>
-							<?php endif; ?>
-						</div>
-				</div>
-				<?php endif; ?>
-
 			</div>
+			<?php endif; ?>
 
-			<?php if ( 'style2' === $card_style ) : ?>
-			<div class="marks-team-card__body">
+			<div class="marks-team-card__header">
 				<h3 class="marks-team-card__name">
 					<?php echo esc_html( $name ); ?>
 				</h3>
@@ -117,9 +103,19 @@ if ( ! $members_query->have_posts() ) {
 				</p>
 				<?php endif; ?>
 			</div>
+
+			<?php if ( $description ) : ?>
+			<p class="marks-team-card__description">
+				<?php echo esc_html( $description ); ?>
+			</p>
 			<?php endif; ?>
 
-		</article>
+			<?php if ( $show_button ) : ?>
+			<span class="marks-team-card__btn">
+				<?php echo esc_html( $name ); ?>
+			</span>
+			<?php endif; ?>
+		</a>
 
 		<?php endwhile; wp_reset_postdata(); ?>
 

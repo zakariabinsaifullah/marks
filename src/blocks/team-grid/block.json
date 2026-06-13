@@ -6,7 +6,7 @@
     "title": "Team Grid",
     "category": "marks-blocks",
     "icon": "groups",
-    "description": "Display team members from the Team post type in a responsive grid with a detail popup.",
+    "description": "Display team members from the Team post type in a responsive grid.",
     "example": {},
     "supports": {
         "html": false,
@@ -44,40 +44,13 @@
             "type": "string",
             "default": "menu_order"
         },
-        "cardBg": {
-            "type": "string"
-        },
-        "cardPadding": {
-            "type": "string"
-        },
-        "cardRadius": {
-            "type": "string"
-        },
-        "cardBorderColor": {
-            "type": "string"
-        },
-        "cardBorderWidth": {
-            "type": "string"
-        },
-        "nameColor": {
-            "type": "string"
-        },
-        "designationColor": {
-            "type": "string"
-        },
-        "iconColor": {
-            "type": "string"
-        },
-        "overlayColor": {
-            "type": "string"
-        },
-        "cardStyle": {
+        "descSource": {
             "type": "string",
-            "default": "style1"
+            "default": "background"
         },
-        "imageTextGap": {
-            "type": "string",
-            "default": "10.81px"
+        "showButton": {
+            "type": "boolean",
+            "default": false
         },
         "selectedIds": {
             "type": "string",
