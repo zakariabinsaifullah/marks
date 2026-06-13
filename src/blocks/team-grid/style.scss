@@ -1,0 +1,149 @@
+// ─────────────────────────────────────────────────────────────────────────────
+// Team Grid Block
+// ─────────────────────────────────────────────────────────────────────────────
+
+.wp-block-marks-team-grid {
+    // CSS custom property defaults — overridden via blockStyle inline styles.
+    --dcols: 2;
+    --tcols: 2;
+    --mcols: 1;
+    --image-text-gap: 10.81px;
+    --gap: 50px;
+    --row-gap: 0px;
+    --card-bg: transparent;
+    --card-padding: 30px;
+    --card-radius: 12px;
+    --card-border-color: rgba(0, 0, 0, 0.4);
+    --card-border-width: 1px;
+    --name-color: #1a1a1a;
+    --designation-color: #000;
+    --overlay-color: rgba(0, 0, 0, 0.35);
+
+    // ── Grid layout ──────────────────────────────────────────────────────────
+    .marks-team-grid__grid {
+        display: grid;
+        row-gap: var(--row-gap);
+        column-gap: var(--gap);
+        grid-template-columns: repeat(var(--mcols), 1fr); // mobile-first
+
+        @media (min-width: 768px) {
+            grid-template-columns: repeat(var(--tcols), 1fr);
+        }
+
+        @media (min-width: 1025px) {
+            grid-template-columns: repeat(var(--dcols), 1fr);
+        }
+    }
+
+    // ── Empty state ───────────────────────────────────────────────────────────
+    .marks-team-grid__empty {
+        color: #9ca3af;
+        font-style: italic;
+    }
+
+    // ─────────────────────────────────────────────────────────────────────────
+    // Card
+    // ─────────────────────────────────────────────────────────────────────────
+    .marks-team-card {
+        background: #ffffff;
+        overflow: hidden;
+        cursor: pointer;
+        padding: 0;
+        box-sizing: border-box;
+
+        // ── Photo area ────────────────────────────────────────────────────────
+        &__image-wrap {
+            position: relative;
+            overflow: hidden;
+            border-radius: var(--card-radius);
+
+            .marks-team-card__image {
+                display: block;
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+        }
+
+        // ── Info overlay wrapper (gradient fade at bottom) ────────────────────
+        &__info-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        // ── White info box (name + designation together) ────────────
+        &__info-text {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 4px;
+            width: 100%;
+            min-height: 81px;
+            border-radius: 12px;
+            padding: 14px 22px;
+            background: #ffffff;
+            box-sizing: border-box;
+        }
+
+        &__name {
+            margin: 0!important;
+            font-weight: 600;
+            font-style: normal;
+            font-size: 18px;
+            line-height: 160%;
+            letter-spacing: 0;
+            color: var(--name-color);
+        }
+
+        &__designation {
+            margin: 0!important;
+            font-size: 14px;
+            color: var(--designation-color);
+            line-height: 1.4;
+        }
+    }
+
+    // ─────────────────────────────────────────────────────────────────────────
+    // Style 2 — Image top, text below
+    // ─────────────────────────────────────────────────────────────────────────
+    .marks-team-card--style2 {
+        display: flex;
+        flex-direction: column;
+        gap: var(--image-text-gap);
+        cursor: default;
+
+        .marks-team-card__image-wrap {
+            flex-shrink: 0;
+        }
+
+        .marks-team-card__body {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .marks-team-card__name {
+            margin: 0;
+            font-weight: 600;
+            font-style: normal;
+            font-size: 18px;
+            line-height: 160%;
+            letter-spacing: 0;
+            color: var(--name-color);
+        }
+
+        .marks-team-card__designation {
+            margin: 0;
+            font-weight: 400;
+            font-style: normal;
+            font-size: 12px;
+            line-height: 150%;
+            letter-spacing: 0;
+            color: var(--designation-color);
+        }
+    }
+
+}

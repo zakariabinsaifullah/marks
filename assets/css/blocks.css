@@ -1,0 +1,15 @@
+:where(figure) {
+    margin: 0 !important;
+}
+
+.wp-block-group {
+    overflow: clip;
+}
+
+.wp-block-buttons.is-style-full-width {
+    width: 100% !important;
+}
+
+.is-style-post-typo.wp-block-post-content h2 {
+    font-size: var(--wp--preset--font-size--marks-x-large);
+}
