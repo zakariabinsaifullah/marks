@@ -135,10 +135,16 @@ function marks_team_meta_callback( $post ) {
     wp_nonce_field( 'marks_team_meta_nonce_action', 'marks_team_meta_nonce' );
 
     $designation = get_post_meta( $post->ID, '_team_designation', true );
+    $background  = get_post_meta( $post->ID, '_team_background', true );
 
     echo '<div style="margin-bottom: 15px;">';
     echo '<label for="team_designation" style="display:block; font-weight:bold; margin-bottom:5px;">' . __( 'Designation', 'marks' ) . '</label>';
     echo '<input type="text" id="team_designation" name="team_designation" value="' . esc_attr( $designation ) . '" style="width:100%;">';
+    echo '</div>';
+
+    echo '<div style="margin-bottom: 15px;">';
+    echo '<label for="team_background" style="display:block; font-weight:bold; margin-bottom:5px;">' . __( 'Professional Background', 'marks' ) . '</label>';
+    echo '<textarea id="team_background" name="team_background" rows="4" style="width:100%;">' . esc_textarea( $background ) . '</textarea>';
     echo '</div>';
 }
 
@@ -158,6 +164,9 @@ function marks_save_team_meta( $post_id ) {
 
     if ( isset( $_POST['team_designation'] ) ) {
         update_post_meta( $post_id, '_team_designation', sanitize_text_field( wp_unslash( $_POST['team_designation'] ) ) );
+    }
+    if ( isset( $_POST['team_background'] ) ) {
+        update_post_meta( $post_id, '_team_background', sanitize_textarea_field( wp_unslash( $_POST['team_background'] ) ) );
     }
 }
 add_action( 'save_post_marks-team', 'marks_save_team_meta' );

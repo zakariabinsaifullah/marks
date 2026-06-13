@@ -115,7 +115,7 @@ addFilter(
                 ...props.wrapperProps,
                 style: {
                     ...props.wrapperProps?.style,
-                    '--insa-featured-bg-image': `url(${featuredImageUrl})`
+                    '--marks-featured-bg-image': `url(${featuredImageUrl})`
                 }
             };
 

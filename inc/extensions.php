@@ -342,7 +342,7 @@ add_action( 'enqueue_block_assets', 'marks_enqueue_group_overlay_bg_frontend_ass
 
 if ( ! function_exists( 'marks_render_group_overlay_bg' ) ) :
 	/**
-	 * Injects the `insa-overlay-bg` class and `--insa-overlay-bg` CSS custom property
+	 * Injects the `marks-overlay-bg` class and `--marks-overlay-bg` CSS custom property
 	 * into core/group blocks on the frontend when an overlay background is set.
 	 *
 	 * @param string $block_content The rendered block HTML.
@@ -377,14 +377,14 @@ if ( ! function_exists( 'marks_render_group_overlay_bg' ) ) :
 
 		$processor = new WP_HTML_Tag_Processor( $block_content );
 		if ( $processor->next_tag() ) {
-			$processor->add_class( 'insa-overlay-bg' );
+			$processor->add_class( 'marks-overlay-bg' );
 
 			$existing_style = $processor->get_attribute( 'style' ) ?? '';
 			$new_style      = rtrim( $existing_style, '; ' );
 			if ( $new_style ) {
 				$new_style .= ';';
 			}
-			$new_style .= '--insa-overlay-bg:' . $bg_value;
+			$new_style .= '--marks-overlay-bg:' . $bg_value;
 			$processor->set_attribute( 'style', $new_style );
 
 			return $processor->get_updated_html();
@@ -464,7 +464,7 @@ add_action( 'enqueue_block_assets', 'marks_enqueue_group_global_hover_frontend_a
 
 if ( ! function_exists( 'marks_render_group_global_hover' ) ) :
 	/**
-	 * Injects `insa-global-hover` class + CSS variables into core/group blocks on the
+	 * Injects `marks-global-hover` class + CSS variables into core/group blocks on the
 	 * frontend when the global hover feature is enabled.
 	 *
 	 * @param string $block_content The rendered block HTML.
@@ -509,19 +509,19 @@ if ( ! function_exists( 'marks_render_group_global_hover' ) ) :
 			} else {
 				$bg_value = $custom_bg_color;
 			}
-			$css_vars[] = '--insa-ghover-bg:' . $bg_value;
+			$css_vars[] = '--marks-ghover-bg:' . $bg_value;
 		}
 
 		if ( $has_color ) {
 			$color_value = $color
 				? 'var(--wp--preset--color--' . $color . ')'
 				: $custom_color;
-			$css_vars[] = '--insa-ghover-color:' . $color_value;
+			$css_vars[] = '--marks-ghover-color:' . $color_value;
 		}
 
 		$processor = new WP_HTML_Tag_Processor( $block_content );
 		if ( $processor->next_tag() ) {
-			$processor->add_class( 'insa-global-hover' );
+			$processor->add_class( 'marks-global-hover' );
 
 			$existing_style = $processor->get_attribute( 'style' ) ?? '';
 			$new_style      = rtrim( $existing_style, '; ' );
@@ -1590,7 +1590,7 @@ if ( ! function_exists( 'marks_render_kadence_featured_bg' ) ) :
 			if ( $new_style ) {
 				$new_style .= ';';
 			}
-			$new_style .= '--insa-featured-bg-image:url(' . esc_url( $image_url ) . ')';
+			$new_style .= '--marks-featured-bg-image:url(' . esc_url( $image_url ) . ')';
 			$processor->set_attribute( 'style', $new_style );
 
 			return $processor->get_updated_html();

@@ -74,7 +74,7 @@ addFilter(
 );
 
 /**
- * Apply `insa-overlay-bg` class and `--insa-overlay-bg` CSS variable in the editor preview.
+ * Apply `marks-overlay-bg` class and `--marks-overlay-bg` CSS variable in the editor preview.
  */
 addFilter(
     'editor.BlockListBlock',
@@ -105,11 +105,11 @@ addFilter(
                 ...props.wrapperProps,
                 style: {
                     ...props.wrapperProps?.style,
-                    '--insa-overlay-bg': bgValue
+                    '--marks-overlay-bg': bgValue
                 }
             };
 
-            const classes = [ props.className, 'insa-overlay-bg' ]
+            const classes = [ props.className, 'marks-overlay-bg' ]
                 .filter( Boolean )
                 .join( ' ' );
 

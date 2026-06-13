@@ -23,32 +23,32 @@
                 {
                     "gradient": "radial-gradient(164.05% 124.18% at 50% 124.18%, #000000 1.44%, #7A1E2B 10.58%, rgba(0, 0, 0, 0) 55.77%, rgba(0, 0, 0, 0) 100%)",
                     "name": "Gradient Background",
-                    "slug": "insa-gradient-background"
+                    "slug": "marks-gradient-background"
                 },
                 {
                     "gradient": "radial-gradient(104.44% 357.81% at 6.11% 44.67%, rgba(0, 0, 0, 0.8) 45.67%, rgba(122, 30, 43, 0.8) 100%)",
                     "name": "Radial Gradient",
-                    "slug": "insa-radial-gradient"
+                    "slug": "marks-radial-gradient"
                 },
                 {
                     "gradient": "radial-gradient(164.05% 124.18% at 50% 124.18%, #000000 1.44%, #7A1E2B 10.58%, rgba(0, 0, 0, 0) 55.77%, rgba(0, 0, 0, 0) 100%)",
                     "name": "Radial Gradient 2",
-                    "slug": "insa-radial-gradient-2"
+                    "slug": "marks-radial-gradient-2"
                 },
                 {
                     "gradient": "linear-gradient(180deg, #9D272D 6.73%, #6C080A 54%, rgba(221, 66, 66, 0) 100%)",
                     "name": "Linear Gradient",
-                    "slug": "insa-linear-gradient"
+                    "slug": "marks-linear-gradient"
                 },
                 {
                     "gradient": "linear-gradient(90.21deg, #191919 44.34%, #7A1E2B 99.76%)",
                     "name": "Linear Gradient 2",
-                    "slug": "insa-linear-gradient-2"
+                    "slug": "marks-linear-gradient-2"
                 },
                 {
                     "gradient": "linear-gradient(180deg, #FFFFFF 0%, #FFFFFF 0%, rgba(221, 66, 66, 0.20) 100%)",
                     "name": "Linear",
-                    "slug": "insa-linear"
+                    "slug": "marks-linear"
                 }
             ],
             "palette": [
@@ -164,37 +164,47 @@
                 {
                     "name": "Edge Gap",
                     "size": "1rem",
-                    "slug": "insa-edge-gap"
+                    "slug": "marks-edge-gap"
                 },
                 {
                     "name": "Elements Gap",
                     "size": "1.5rem",
-                    "slug": "insa-elements-gap"
+                    "slug": "marks-elements-gap"
+                },
+                {
+                    "name": "2X Small",
+                    "size": "20px",
+                    "slug": "marks-20"
                 },
                 {
                     "name": "Small",
                     "size": "30px",
-                    "slug": "insa-30"
+                    "slug": "marks-30"
+                },
+                {
+                    "name": "Medium",
+                    "size": "40px",
+                    "slug": "marks-40"
                 },
                 {
                     "name": "Regular",
                     "size": "clamp(30px, 5vw, 50px)",
-                    "slug": "insa-50"
+                    "slug": "marks-50"
                 },
                 {
                     "name": "Large",
                     "size": "clamp(30px, 7vw, 70px)",
-                    "slug": "insa-60"
+                    "slug": "marks-60"
                 },
                 {
                     "name": "X-Large",
                     "size": "clamp(70px, 7vw, 100px)",
-                    "slug": "insa-100"
+                    "slug": "marks-100"
                 },
                 {
                     "name": "Section Padding",
                     "size": "clamp(70px, 10vw, 100px)",
-                    "slug": "insa-section-padding"
+                    "slug": "marks-section-padding"
                 }
             ],
             "units": ["%", "px", "em", "rem", "vh", "vw"]
@@ -450,7 +460,7 @@
             "presets": [
                 {
                     "name": "Light Dark",
-                    "slug": "insa-light-dark",
+                    "slug": "marks-light-dark",
                     "shadow": "0px 5px 15px rgba(0, 0, 0, 0.4)"
                 }
             ]
@@ -471,14 +481,14 @@
             "core/code": {
                 "color": {
                     "background": "var(--wp--preset--color--accent-5)",
-                    "text": "var(--wp--preset--color--insa-black)"
+                    "text": "var(--wp--preset--color--marks-neutral-darkest)"
                 },
                 "spacing": {
                     "padding": {
-                        "bottom": "var(--wp--preset--spacing--insa-40)",
-                        "left": "var(--wp--preset--spacing--insa-40)",
-                        "right": "var(--wp--preset--spacing--insa-40)",
-                        "top": "var(--wp--preset--spacing--insa-40)"
+                        "bottom": "var(--wp--preset--spacing--marks-40)",
+                        "left": "var(--wp--preset--spacing--marks-40)",
+                        "right": "var(--wp--preset--spacing--marks-40)",
+                        "top": "var(--wp--preset--spacing--marks-40)"
                     }
                 },
                 "typography": {
@@ -489,7 +499,7 @@
             },
             "core/columns": {
                 "spacing": {
-                    "blockGap": "var(--wp--preset--spacing--insa-50)"
+                    "blockGap": "var(--wp--preset--spacing--marks-50)"
                 }
             },
             "core/comment-author-name": {
@@ -524,8 +534,8 @@
             "core/comment-content": {
                 "spacing": {
                     "margin": {
-                        "bottom": "var(--wp--preset--spacing--insa-30)",
-                        "top": "var(--wp--preset--spacing--insa-30)"
+                        "bottom": "var(--wp--preset--spacing--marks-30)",
+                        "top": "var(--wp--preset--spacing--marks-30)"
                     }
                 },
                 "typography": {
@@ -534,12 +544,12 @@
             },
             "core/comment-date": {
                 "color": {
-                    "text": "var(--wp--preset--color--insa-black)"
+                    "text": "var(--wp--preset--color--marks-neutral-darkest)"
                 },
                 "elements": {
                     "link": {
                         "color": {
-                            "text": "var(--wp--preset--color--insa-black)"
+                            "text": "var(--wp--preset--color--marks-neutral-darkest)"
                         }
                     }
                 },
@@ -551,7 +561,7 @@
                 "elements": {
                     "link": {
                         "color": {
-                            "text": "var(--wp--preset--color--insa-black)"
+                            "text": "var(--wp--preset--color--marks-neutral-darkest)"
                         }
                     }
                 },
@@ -563,7 +573,7 @@
                 "elements": {
                     "link": {
                         "color": {
-                            "text": "var(--wp--preset--color--insa-black)"
+                            "text": "var(--wp--preset--color--marks-neutral-darkest)"
                         }
                     }
                 },
@@ -574,8 +584,8 @@
             "core/comments-pagination": {
                 "spacing": {
                     "margin": {
-                        "bottom": "var(--wp--preset--spacing--insa-40)",
-                        "top": "var(--wp--preset--spacing--insa-40)"
+                        "bottom": "var(--wp--preset--spacing--marks-40)",
+                        "top": "var(--wp--preset--spacing--marks-40)"
                     }
                 },
                 "typography": {
@@ -627,8 +637,8 @@
                 "css": "& textarea, input:not([type=submit]){border-radius:.25rem; border-color: var(--wp--preset--color--accent-6) !important;} & input[type=checkbox]{margin:0 .2rem 0 0 !important;} & label {font-size: var(--wp--preset--font-size--marks-small); }",
                 "spacing": {
                     "padding": {
-                        "bottom": "var(--wp--preset--spacing--insa-40)",
-                        "top": "var(--wp--preset--spacing--insa-40)"
+                        "bottom": "var(--wp--preset--spacing--marks-40)",
+                        "top": "var(--wp--preset--spacing--marks-40)"
                     }
                 },
                 "typography": {
@@ -687,7 +697,7 @@
                 }
             },
             "core/pullquote": {
-                "css": "& p:last-of-type {margin-bottom: var(--wp--preset--spacing--insa-30);}",
+                "css": "& p:last-of-type {margin-bottom: var(--wp--preset--spacing--marks-30);}",
                 "elements": {
                     "cite": {
                         "typography": {
@@ -698,8 +708,8 @@
                 },
                 "spacing": {
                     "padding": {
-                        "bottom": "var(--wp--preset--spacing--insa-30)",
-                        "top": "var(--wp--preset--spacing--insa-30)"
+                        "bottom": "var(--wp--preset--spacing--marks-30)",
+                        "top": "var(--wp--preset--spacing--marks-30)"
                     }
                 },
                 "typography": {
@@ -732,16 +742,16 @@
                     }
                 },
                 "spacing": {
-                    "blockGap": "var(--wp--preset--spacing--insa-30)",
+                    "blockGap": "var(--wp--preset--spacing--marks-30)",
                     "margin": {
                         "left": "0",
                         "right": "0"
                     },
                     "padding": {
-                        "bottom": "var(--wp--preset--spacing--insa-30)",
-                        "left": "var(--wp--preset--spacing--insa-40)",
-                        "right": "var(--wp--preset--spacing--insa-40)",
-                        "top": "var(--wp--preset--spacing--insa-30)"
+                        "bottom": "var(--wp--preset--spacing--marks-30)",
+                        "left": "var(--wp--preset--spacing--marks-40)",
+                        "right": "var(--wp--preset--spacing--marks-40)",
+                        "top": "var(--wp--preset--spacing--marks-30)"
                     }
                 },
                 "typography": {
@@ -959,7 +969,7 @@
             "link": {
                 ":hover": {
                     "color": {
-                        "text": "var(--wp--preset--color--insa-cyprus)"
+                        "text": "var(--wp--preset--color--marks-firefly)"
                     },
                     "typography": {
                         "textDecoration": "none"
