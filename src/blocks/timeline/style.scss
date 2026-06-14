@@ -1,0 +1,25 @@
+.wp-block-marks-timeline {
+    .marks-timeline {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0;
+        align-items: flex-start;
+        position: relative;
+
+        @media (max-width: 767px) {
+            flex-direction: column;
+            gap: 16px;
+
+            &:before {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 2px;
+                height: 100%;
+                content: '';
+                background: #c9a84c;
+                margin-left: 25px;
+            }
+        }
+    }
+}

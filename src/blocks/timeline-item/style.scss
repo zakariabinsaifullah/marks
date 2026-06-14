@@ -1,0 +1,85 @@
+.wp-block-marks-timeline-item {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+
+    &::before {
+        display: none;
+    }
+
+    .timeline-icon-row {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        width: 100%;
+        position: relative;
+        z-index: 1;
+
+        &::before,
+        &::after {
+            content: '';
+            flex: 1;
+            height: 2px;
+            background: #c9a84c;
+        }
+    }
+
+    // ── Icon circle ───────────────────────────────────────────────
+    .timeline-icon {
+        flex-shrink: 0;
+        padding: 8px;
+        border-radius: 50%;
+        border: 1px solid #c9a84c;
+        background: var(--icon-bg, #f5efe4);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #c9a84c;
+
+        svg {
+            fill: currentColor;
+            flex-shrink: 0;
+            width: 24px;
+            height: 24px;
+        }
+    }
+
+    // ── Card: horizontal margin creates visual gap between cards ──
+    // icon-row stays full-width so lines connect; only card gets margin
+    .timeline-card {
+        margin: var(--item-gap, 16px) 8px 0;
+        background: #ffffff;
+        border-radius: 14px;
+        border: 1px solid #e5e0d6;
+        padding: 24px 16px;
+    }
+
+    &:first-child .timeline-card {
+        margin-left: 0;
+    }
+
+    &:last-child .timeline-card {
+        margin-right: 0;
+    }
+
+    // ── Mobile: vertical timeline ─────────────────────────────────
+    @media (max-width: 767px) {
+        flex-direction: row;
+        align-items: flex-start;
+        width: 100%;
+        gap: 16px;
+
+        .timeline-icon-row {
+            width: auto;
+            gap: 0;
+            border: 5px solid #c9a84c;
+            border: 5px solid var(--icon-bg, #f5efe4);
+        }
+
+        .timeline-card {
+            width: 100%;
+            margin: 0 !important;
+        }
+    }
+}

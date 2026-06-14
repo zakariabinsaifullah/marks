@@ -1,0 +1,86 @@
+.wp-block-marks-unfold-content-item {
+    position: relative;
+    overflow: visible;
+    transition: all 0.3s ease;
+    border-bottom: 1px solid #e4e4e4;
+    box-shadow:
+        0px 20px 100px 0px transparent,
+        inset 5px 0 0 0 transparent;
+    padding: 30px;
+    box-sizing: border-box;
+    cursor: pointer;
+
+    // ── Icon + content row ───────────────────────────────────────
+    .unfold-item-wrapper {
+        display: flex;
+        align-items: flex-start;
+        gap: var(--item-gap, 15px);
+    }
+
+    // ── Icon circle ──────────────────────────────────────────────
+    .unfold-icon {
+        width: var(--icon-size, 32px);
+        height: var(--icon-size, 32px);
+        border-radius: 50%;
+        background: var(--icon-bg, #c9a84c);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: transform 0.22s ease-out;
+
+        svg {
+            color: #fff;
+            fill: currentColor;
+            flex-shrink: 0;
+        }
+    }
+
+    // ── Content column ───────────────────────────────────────────
+    .unfold-content {
+        flex: 1;
+        min-width: 0;
+
+        > h1,
+        > h2,
+        > h3,
+        > h4,
+        > h5,
+        > h6,
+        > .wp-block-heading {
+            margin: 0 !important;
+            line-height: 1 !important;
+        }
+    }
+
+    // ── Collapsible body (CSS Grid trick) ────────────────────────
+    // Small delay: card appears first, then content reveals.
+    .unfold-body {
+        visibility: hidden;
+        opacity: 0;
+        transform: translateY(10px);
+        transition: all 0.3s ease;
+        height: 0;
+    }
+
+    // ── Active / expanded card ───────────────────────────────────
+    &.is-active {
+        background-color: #ffffff;
+        border-radius: 14px;
+        border-bottom-color: transparent;
+        box-shadow:
+            0px 20px 100px 0px rgba(0, 0, 0, 0.07),
+            inset 5px 0 0 0 var(--icon-bg, #0d1b2a);
+        overflow: visible;
+
+        .unfold-body {
+            visibility: visible;
+            opacity: 1;
+            transform: translateY(0);
+            height: auto;
+        }
+
+        .unfold-inner {
+            margin-top: 15px;
+        }
+    }
+}

@@ -1,0 +1,10 @@
+.wp-block-marks-unfold-content {
+    overflow: visible;
+
+    .marks-unfold-content {
+        display: flex;
+        flex-direction: column;
+        gap: 0;
+        overflow: visible;
+    }
+}
