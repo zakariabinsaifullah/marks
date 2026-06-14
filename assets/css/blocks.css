@@ -13,3 +13,9 @@
 .is-style-post-typo.wp-block-post-content h2 {
     font-size: var(--wp--preset--font-size--marks-x-large);
 }
+
+.is-style-outline-link .wp-block-post-excerpt__more-link {
+    border: 1px solid currentColor;
+    border-radius: 100px;
+    padding: 10px 24px;
+}
