@@ -1,0 +1,91 @@
+.wp-block-marks-remote-tabs {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: stretch !important;
+
+    .remote-tabs-left {
+        width: 380px;
+        background: var(--rt-left-bg, #EDE8DC);
+        padding: 32px;
+
+        .remote-tabs-heading {
+            color: var(--rt-heading-color, inherit);
+        }
+
+        .remote-tabs-description {
+            color: var(--rt-desc-color, inherit);
+            margin-top: 16px;
+        }
+
+        .remote-tabs-divider {
+            border: none;
+            border-top: 1px solid rgba(0, 0, 0, 0.15);
+            margin: 32px 0 0;
+        }
+
+        .remote-tabs-nav {
+            margin-top: 8px;
+            display: flex;
+            flex-direction: column;
+
+            .remote-tab-btn {
+                background: none;
+                border: none;
+                border-left: 3px solid transparent;
+                padding: 14px 16px;
+                text-align: left;
+                cursor: pointer;
+                font-size: 16px;
+                font-family: inherit;
+                color: var(--rt-label-color, inherit);
+                opacity: 0.6;
+                transition: opacity 0.2s ease, border-color 0.2s ease;
+
+                &:hover {
+                    opacity: 0.85;
+                }
+
+                &.is-active {
+                    border-left-color: #A0863C;
+                    color: var(--rt-label-active-color, inherit);
+                    opacity: 1;
+                    font-weight: 600;
+                }
+            }
+        }
+    }
+
+    .remote-tabs-panels {
+        flex: 1;
+        min-width: 0;
+        background: #fff;
+
+        .wp-block-marks-remote-tab-item {
+            background: transparent;
+        }
+
+        @for $i from 0 through 9 {
+            &[data-active-tab="#{$i}"] > .wp-block-marks-remote-tab-item:not(:nth-child(#{$i + 1})) {
+                display: none;
+            }
+        }
+    }
+
+    .remote-tabs-left.has-no-header {
+        display: flex;
+        align-items: center;
+
+        .remote-tabs-header {
+            display: none;
+        }
+    }
+
+    @media (max-width: 768px) {
+        flex-direction: column !important;
+
+        .remote-tabs-left {
+            flex: none;
+            width: 100%;
+        }
+    }
+}

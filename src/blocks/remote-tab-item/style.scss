@@ -1,0 +1,6 @@
+// Frontend styles are handled by the parent remote-tabs block
+.wp-block-marks-remote-tab-item {
+    .remote-tab-item-label {
+        display: none; // hidden on frontend
+    }
+}
