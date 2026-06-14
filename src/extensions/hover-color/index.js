@@ -143,7 +143,7 @@ addFilter(
                     ...props.wrapperProps?.style,
                     '--hover-color': getColorValue(hoverTextColor, customHoverTextColor),
                     '--hover-background-color': getColorValue(hoverBackgroundColor, customHoverBackgroundColor),
-                    '--hover-border-color': getColorValue(hoverBorderColor, customHoverBorderColor),
+                    '--hover-br-color': getColorValue(hoverBorderColor, customHoverBorderColor),
                     '--hover-transition-duration': hoverTransitionDuration + 'ms',
                     '--hover-transition-timing': hoverTransitionTiming
                 }
@@ -153,7 +153,7 @@ addFilter(
                 props.className,
                 hasHoverText ? 'has-hover__color' : '',
                 hasHoverBg ? 'has-hover__background-color' : '',
-                hasHoverBorder ? 'has-hover__border-color' : ''
+                hasHoverBorder ? 'has-hover__br-color' : ''
             ]
                 .filter(Boolean)
                 .join(' ');

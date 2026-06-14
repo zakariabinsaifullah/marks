@@ -3,7 +3,7 @@ $hover-transition-duration: var(--hover-transition-duration, 200ms);
 $hover-transition-timing: var(--hover-transition-timing, cubic-bezier(0.4, 0, 0.2, 1));
 $hover-color: var(--hover-color);
 $hover-background-color: var(--hover-background-color);
-$hover-border-color: var(--hover-border-color);
+$hover-br-color: var(--hover-br-color);
 
 // Mixin for hover transitions
 @mixin hover-transition($property) {
@@ -25,10 +25,10 @@ $hover-border-color: var(--hover-border-color);
 	}
 }
 
-.has-hover__border-color:not(.wp-block-button) {
+.has-hover__br-color:not(.wp-block-button) {
 	@include hover-transition(border-color);
 	&:hover {
-		border-color: $hover-border-color !important;
+		border-color: $hover-br-color !important;
 	}
 }
 
@@ -56,13 +56,13 @@ $hover-border-color: var(--hover-border-color);
 	}
 }
 
-.wp-block-button.has-hover__border-color {
+.wp-block-button.has-hover__br-color {
 	.wp-element-button {
 		@include hover-transition(border-color);
 	}
 	&:hover {
 		.wp-element-button {
-			border-color: $hover-border-color !important;
+			border-color: $hover-br-color !important;
 		}
 	}
 }
