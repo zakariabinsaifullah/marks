@@ -1,0 +1,15 @@
+.wp-block-marks-remote-tabs {
+    .remote-tabs-panels {
+        .wp-block-marks-remote-tab-item {
+            .remote-tab-content {
+                min-height: 60px;
+            }
+        }
+
+        @for $i from 0 through 9 {
+            &[data-active-tab="#{$i}"] > .wp-block-marks-remote-tab-item:not(:nth-child(#{$i + 1})) {
+                display: none;
+            }
+        }
+    }
+}

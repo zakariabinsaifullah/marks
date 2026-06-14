@@ -1,0 +1,73 @@
+{
+    "$schema": "https://schemas.wp.org/trunk/block.json",
+    "apiVersion": 3,
+    "name": "marks/remote-tabs",
+    "version": "1.0.0",
+    "title": "Remote Tabs",
+    "category": "marks-blocks",
+    "icon": "star-filled",
+    "description": "Tabbed section with left navigation and right content panel.",
+    "example": {},
+    "supports": {
+        "anchor": true,
+        "html": false,
+        "align": ["wide", "full"],
+        "spacing": {
+            "margin": true,
+            "padding": true,
+            "__experimentalDefaultControls": {
+                "margin": false,
+                "padding": false
+            }
+        }
+    },
+    "attributes": {
+        "blockStyle": {
+            "type": "object"
+        },
+        "uniqueId": {
+            "type": "string"
+        },
+        "heading": {
+            "type": "string",
+            "default": "Who We Serve"
+        },
+        "description": {
+            "type": "string",
+            "default": ""
+        },
+        "headingColor": {
+            "type": "string"
+        },
+        "descriptionColor": {
+            "type": "string"
+        },
+        "tabLabelColor": {
+            "type": "string"
+        },
+        "tabLabelActiveColor": {
+            "type": "string"
+        },
+        "showHeading": {
+            "type": "boolean",
+            "default": true
+        },
+        "showDescription": {
+            "type": "boolean",
+            "default": true
+        },
+        "showDivider": {
+            "type": "boolean",
+            "default": true
+        },
+        "leftBgColor": {
+            "type": "string"
+        }
+    },
+    "textdomain": "marks",
+    "render": "file:./render.php",
+    "editorScript": "file:./index.js",
+    "editorStyle": "file:./index.css",
+    "style": "file:./style-index.css",
+    "viewScript": "file:./view.js"
+}
