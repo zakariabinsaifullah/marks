@@ -9,13 +9,15 @@ const Save = props => {
 
     return (
         <div {...blockProps}>
-            <div className="timeline-icon-row">
-                <div className="timeline-icon">
-                    <RenderIcon customSvgCode={customSvgCode} iconName={iconName} size={Math.round((iconSize || 48) * 0.55)} />
+            <div className="unfold-item-wrapper">
+                <div className="unfold-icon">
+                    <RenderIcon
+                        customSvgCode={customSvgCode}
+                        iconName={iconName}
+                        size={Math.round((iconSize || 52) * 0.5)}
+                    />
                 </div>
-            </div>
-            <div className="timeline-card">
-                <div className="timeline-content">
+                <div className="unfold-content">
                     <InnerBlocks.Content />
                 </div>
             </div>

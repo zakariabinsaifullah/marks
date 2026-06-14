@@ -33,7 +33,7 @@ const Inspector = props => {
                         min={32}
                         max={120}
                         step={2}
-                        resetFallbackValue={48}
+                        resetFallbackValue={52}
                     />
                     <PanelColorControl
                         label={__('Circle Background', 'marks')}

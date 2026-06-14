@@ -4,7 +4,10 @@ import { __ } from '@wordpress/i18n';
 import Inspector from './inspector';
 import { RenderIcon } from '../../helpers';
 
-const INNER_TEMPLATE = [['core/paragraph', { placeholder: __('Step 1:', 'marks'), className: 'timeline-step-label' }]];
+const TEMPLATE = [
+    ['core/heading', { level: 4, placeholder: __('Heading…', 'marks') }],
+    ['core/paragraph', { placeholder: __('Description…', 'marks') }]
+];
 
 const Edit = props => {
     const { attributes, setAttributes, isSelected } = props;
@@ -12,27 +15,34 @@ const Edit = props => {
 
     const cssCustomProperties = {
         ...(iconBgColor && { '--icon-bg': iconBgColor }),
-        '--icon-size': `${iconSize || 48}px`
+        ...(iconSize && { '--icon-size': `${iconSize}px` })
     };
 
-    const blockProps = useBlockProps({ style: cssCustomProperties });
+    const blockProps = useBlockProps({
+        className: 'is-active',
+        style: cssCustomProperties
+    });
+
+    const innerBlockProps = useInnerBlocksProps(
+        { className: 'unfold-content' },
+        {
+            template: TEMPLATE,
+            templateLock: false
+        }
+    );
 
     useEffect(() => {
         setAttributes({ blockStyle: cssCustomProperties });
     }, [iconBgColor, iconSize]);
 
-    const innerBlockProps = useInnerBlocksProps({ className: 'timeline-content' }, { template: INNER_TEMPLATE, templateLock: false });
-
     return (
         <Fragment>
             {isSelected && <Inspector {...props} />}
             <div {...blockProps}>
-                <div className="timeline-icon-row">
-                    <div className="timeline-icon">
-                        <RenderIcon customSvgCode={customSvgCode} iconName={iconName} size={Math.round((iconSize || 48) * 0.55)} />
+                <div className="unfold-item-wrapper">
+                    <div className="unfold-icon">
+                        <RenderIcon customSvgCode={customSvgCode} iconName={iconName} />
                     </div>
-                </div>
-                <div className="timeline-card">
                     <div {...innerBlockProps} />
                 </div>
             </div>

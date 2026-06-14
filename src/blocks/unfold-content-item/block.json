@@ -1,13 +1,13 @@
 {
     "$schema": "https://schemas.wp.org/trunk/block.json",
     "apiVersion": 3,
-    "name": "marks/timeline-item",
+    "name": "marks/unfold-content-item",
     "version": "1.0.0",
-    "title": "Timeline Item",
+    "title": "Unfold Content Item",
     "category": "marks-blocks",
-    "parent": ["marks/timeline"],
+    "parent": ["marks/unfold-content"],
     "icon": "star-filled",
-    "description": "Individual item for the timeline block.",
+    "description": "Individual item for the unfold content block.",
     "example": {},
     "supports": {
         "anchor": true,
@@ -30,7 +30,7 @@
         },
         "iconSize": {
             "type": "number",
-            "default": 48
+            "default": 52
         }
     },
     "textdomain": "marks",

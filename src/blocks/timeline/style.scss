@@ -1,23 +1,14 @@
 .wp-block-marks-timeline {
     .marks-timeline {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0;
+        align-items: flex-start;
         position: relative;
-    }
 
-    // editor add button
-    .marks-timeline-add-btn {
-        display: block;
-        margin-top: 20px;
-        padding: 10px 24px;
-        background: #126464;
-        color: #fff;
-        border: none;
-        border-radius: 6px;
-        cursor: pointer;
-        font-size: 14px;
-        font-weight: 500;
-
-        &:hover {
-            background: #0e4f4f;
+        @media (max-width: 767px) {
+            flex-direction: column;
+            padding: 20px 0;
         }
     }
 }

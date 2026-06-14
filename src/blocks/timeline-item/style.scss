@@ -1,91 +1,145 @@
 .wp-block-marks-timeline-item {
-    display: -webkit-box;
-    display: -ms-flexbox;
+    flex: 1;
+    min-width: 0;
     display: flex;
-    -webkit-box-orient: horizontal;
-    -webkit-box-direction: normal;
-    -ms-flex-direction: row;
-    flex-direction: row;
-    -webkit-box-align: start;
-    -ms-flex-align: start;
-    align-items: flex-start;
-    gap: var(--item-gap, 10px);
-    position: relative;
-    padding-bottom: var(--items-gap, 16px );
+    flex-direction: column;
 
-    // vertical line — 8px gap below icon, 8px gap before next icon
     &::before {
-        content: '';
-        position: absolute;
-        left: 23px;
-        top: 56px;
-        bottom: 8px;
-        width: 3px;
-        background: #af8b0c;
-        z-index: 0;
+        display: none;
     }
 
+    // ── Icon row: full-width so lines from adjacent items connect ─
+    .timeline-icon-row {
+        display: flex;
+        align-items: center;
+        gap: 10px; // gap between line end and icon edge
+        width: 100%;
+        position: relative;
+        z-index: 1;
+
+        &::before,
+        &::after {
+            content: '';
+            flex: 1;
+            height: 2px;
+            background: #c9a84c;
+        }
+    }
+
+    // ── Icon circle ───────────────────────────────────────────────
     .timeline-icon {
-        width: 48px;
-        height: 48px;
-        margin-top: 0;
-        border: none!important;
-        margin-block-start: 0;
-        border-radius: 40px;
-        background: var(--icon-bg, #af8b0c);
+        flex-shrink: 0;
+        width: var(--icon-size, 48px);
+        height: var(--icon-size, 48px);
+        border-radius: 50%;
+        border: 1.5px solid var(--icon-bg, #c9a84c);
+        background: #faf7f0; // matches page bg — visually separates from line
         display: flex;
         align-items: center;
         justify-content: center;
-
-        img {
-            width: 26px;
-            height: 26px;
-            object-fit: contain;
-        }
+        color: var(--icon-bg, #c9a84c);
 
         svg {
-            width: 26px;
-            height: 26px;
-            color: #fff;
             fill: currentColor;
             flex-shrink: 0;
         }
+    }
 
-        .marks-custom-svg-container {
-            display: flex;
-            align-items: center;
-            justify-content: center;
+    // ── Card: horizontal margin creates visual gap between cards ──
+    // icon-row stays full-width so lines connect; only card gets margin
+    .timeline-card {
+        margin: var(--item-gap, 20px) calc(var(--items-gap, 8px) / 2) 0;
+        background: #ffffff;
+        border-radius: 14px;
+        border: 1px solid #e5e0d6;
+        padding: 24px 16px;
+    }
 
-            svg {
-                width: 26px;
-                height: 26px;
+    &:first-child .timeline-card {
+        margin-left: 0;
+    }
+
+    &:last-child .timeline-card {
+        margin-right: 0;
+    }
+
+    // ── Content inside card ───────────────────────────────────────
+
+    // ── Mobile: vertical timeline ─────────────────────────────────
+    @media (max-width: 767px) {
+        flex-direction: row;
+        align-items: flex-start;
+        gap: var(--item-gap, 20px);
+        margin-bottom: var(--items-gap, 24px);
+        position: relative;
+        z-index: 1;
+
+        // SEGMENT ABOVE icon: spans from previous item's bottom up to 10px before this icon top
+        &::before {
+            display: block !important;
+            content: '';
+            position: absolute;
+            left: calc(var(--icon-size, 48px) / 2);
+            transform: translateX(-50%);
+            top: calc(-1 * var(--items-gap, 24px));
+            height: calc(var(--items-gap, 24px) - 10px);
+            width: 1px;
+            background: #c9a84c;
+            z-index: 0;
+        }
+
+        // First item: short tail above (no previous item to connect from)
+        &:first-child::before {
+            top: -20px;
+            height: 10px;
+        }
+
+        // SEGMENT BELOW icon: from 10px below icon bottom down to this item's bottom
+        &::after {
+            content: '';
+            display: block;
+            position: absolute;
+            left: calc(var(--icon-size, 48px) / 2);
+            transform: translateX(-50%);
+            top: calc(var(--icon-size, 48px) + 10px);
+            bottom: 0;
+            width: 1px;
+            background: #c9a84c;
+            z-index: 0;
+        }
+
+        // Last item: tail extends to bottom of the item
+        &:last-child::after {
+            bottom: 0;
+        }
+
+        &:last-child {
+            margin-bottom: 0;
+        }
+
+        .timeline-icon-row {
+            flex-shrink: 0;
+            width: auto;
+            gap: 0;
+
+            &::before,
+            &::after {
+                display: none;
             }
         }
 
-        // editor click-to-upload button
-        .timeline-icon-btn {
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            background: transparent;
-            display: -webkit-box;
-            display: -ms-flexbox;
-            display: flex;
-            align-items: center;
-        
-            justify-content: center;
-            cursor: pointer;
-            padding: 0;
+        .timeline-icon {
+            position: relative;
+            z-index: 2;
+            background: #faf7f0;
+        }
+
+        .timeline-card {
+            margin: 4px 0 0 0;
+            flex: 1;
+            min-width: 0;
+            width: auto;
         }
     }
-
-    .timeline-content {
-        flex: 1 1 0%;
-        min-width: 0;
-        background: #f8f8f0;
-        border-radius: 8px;
-        padding: 32px;
-        gap: 16px;
-        margin-top: -15px;
-    }
+    
 }

@@ -1,6 +1,5 @@
 import { useBlockProps, useInnerBlocksProps, BlockControls } from '@wordpress/block-editor';
 import { Fragment } from '@wordpress/element';
-import { useSelect } from '@wordpress/data';
 import { __ } from '@wordpress/i18n';
 import { ToolbarGroup, ToolbarButton } from '@wordpress/components';
 import { plus } from '@wordpress/icons';
@@ -8,21 +7,18 @@ import classNames from 'classnames';
 import Inspector from './inspector';
 
 const TEMPLATE = [
-    ['marks/timeline-item', {}],
-    ['marks/timeline-item', {}],
-    ['marks/timeline-item', {}]
+    ['marks/unfold-content-item', {}],
+    ['marks/unfold-content-item', {}],
+    ['marks/unfold-content-item', {}]
 ];
 
 const Edit = props => {
     const { attributes, clientId, isSelected } = props;
-    const hasSelectedInnerBlock = useSelect(select =>
-        select('core/block-editor').hasSelectedInnerBlock(clientId, true)
-    );
     const { uniqueId, contentGap, itemsGap } = attributes;
 
     const cssCustomProperties = {
-        ...(contentGap && { '--item-gap':  `${contentGap}px` }),
-        ...(itemsGap   && { '--items-gap': `${itemsGap}px`  }),
+        ...(contentGap && { '--item-gap': `${contentGap}px` }),
+        ...(itemsGap && { '--items-gap': `${itemsGap}px` })
     };
 
     const blockProps = useBlockProps({
@@ -31,9 +27,9 @@ const Edit = props => {
     });
 
     const innerBlockProps = useInnerBlocksProps(
-        { className: 'marks-timeline' },
+        { className: 'marks-unfold-content' },
         {
-            allowedBlocks: ['marks/timeline-item'],
+            allowedBlocks: ['marks/unfold-content-item'],
             template: TEMPLATE,
             templateLock: false,
             renderAppender: false
@@ -42,18 +38,18 @@ const Edit = props => {
 
     const addItem = () => {
         const childBlocks = wp.data.select('core/block-editor').getBlocks(clientId);
-        const newBlock = wp.blocks.createBlock('marks/timeline-item', {});
+        const newBlock = wp.blocks.createBlock('marks/unfold-content-item', {});
         wp.data.dispatch('core/block-editor').insertBlocks(newBlock, childBlocks.length, clientId);
     };
 
     return (
         <Fragment>
-            {(isSelected || hasSelectedInnerBlock) && <Inspector {...props} />}
+            {isSelected && <Inspector {...props} />}
             <BlockControls>
                 <ToolbarGroup>
                     <ToolbarButton
                         icon={plus}
-                        label={__('Add Timeline Item', 'marks')}
+                        label={__('Add Item', 'marks')}
                         onClick={addItem}
                     />
                 </ToolbarGroup>
