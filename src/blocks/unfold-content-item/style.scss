@@ -1,0 +1,140 @@
+.wp-block-marks-unfold-content-item {
+    position: relative;
+    overflow: visible;
+    padding-left: 36px;
+    padding-right: 36px;
+
+    transition:
+        background-color 0.22s ease-out,
+        border-radius    0.22s ease-out,
+        box-shadow       0.22s ease-out;
+
+    // "Zero" starting values so the browser can interpolate.
+    // none → value can't animate; transparent → value can.
+    background-color: transparent;
+    border-radius: 0;
+    border-bottom: 1px solid transparent;
+    box-shadow:
+        0px 20px 100px 0px transparent,
+        inset 5px 0 0 0 transparent;
+
+    // ── Icon + content row ───────────────────────────────────────
+    .unfold-item-wrapper {
+        display: flex;
+        align-items: flex-start;
+        gap: var(--item-gap, 20px);
+        cursor: pointer;
+    }
+
+    // ── Icon circle ──────────────────────────────────────────────
+    .unfold-icon {
+        width: var(--icon-size, 32px);
+        height: var(--icon-size, 32px);
+        border-radius: 50%;
+        background: var(--icon-bg, #c9a84c);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-top: 0.1em;
+        transition: transform 0.22s ease-out;
+
+        svg {
+            color: #fff;
+            fill: currentColor;
+            flex-shrink: 0;
+        }
+    }
+
+    // ── Content column ───────────────────────────────────────────
+    .unfold-content {
+        flex: 1;
+        min-width: 0;
+
+        > h1,
+        > h2,
+        > h3,
+        > h4,
+        > h5,
+        > h6,
+        > .wp-block-heading {
+            font-size: clamp(1.35rem, 2.8vw, 2rem);
+            font-weight: 400;
+            margin: 0 !important;
+            line-height: 1.2;
+            letter-spacing: -0.01em;
+            color: #1a1a1a;
+            transition: color 0.18s ease;
+        }
+    }
+
+    // ── Collapsible body (CSS Grid trick) ────────────────────────
+    // Small delay: card appears first, then content reveals.
+    .unfold-body {
+        display: grid;
+        grid-template-rows: 0fr;
+        opacity: 0;
+        padding-top: 0;
+        transition:
+            grid-template-rows 0.28s cubic-bezier(0.4, 0, 0.2, 1),
+            opacity            0.2s  ease,
+            padding-top        0.2s  ease;
+
+        > * {
+            min-height: 0;
+            overflow: hidden;
+        }
+
+        p {
+            margin: 0;
+            font-size: 1rem;
+            line-height: 1.75;
+            color: #555;
+        }
+    }
+
+    // ── Collapsed / inactive ─────────────────────────────────────
+    &:not(.is-active) {
+        padding-top: 28px;
+        padding-bottom: 28px;
+        border-bottom-color: #e5e5e5;
+
+        &:last-child {
+            border-bottom-color: transparent;
+        }
+    }
+
+    // ── Active / expanded card ───────────────────────────────────
+    &.is-active {
+        padding-top: 36px;
+        padding-bottom: 36px;
+        margin-top: 6px;
+        margin-bottom: 6px;
+        background-color: #ffffff;
+        border-radius: 14px;
+        border-bottom-color: transparent;
+        box-shadow:
+            0px 20px 100px 0px rgba(0, 0, 0, 0.07),
+            inset 5px 0 0 0 var(--icon-bg, #0d1b2a);
+        overflow: visible;
+
+        .unfold-icon {
+            transform: scale(1.08);
+        }
+
+        .unfold-content > h1,
+        .unfold-content > h2,
+        .unfold-content > h3,
+        .unfold-content > h4,
+        .unfold-content > h5,
+        .unfold-content > h6,
+        .unfold-content > .wp-block-heading {
+            color: #111;
+        }
+
+        .unfold-body {
+            grid-template-rows: 1fr;
+            opacity: 1;
+            padding-top: 18px;
+        }
+    }
+}
