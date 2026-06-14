@@ -11,10 +11,9 @@ const TEMPLATE = [
 
 const Edit = props => {
     const { attributes, setAttributes, isSelected } = props;
-    const { iconName, customSvgCode, iconBgColor, iconSize } = attributes;
+    const { iconName, customSvgCode, iconSize } = attributes;
 
     const cssCustomProperties = {
-        ...(iconBgColor && { '--icon-bg': iconBgColor }),
         ...(iconSize && { '--icon-size': `${iconSize}px` })
     };
 
@@ -33,7 +32,7 @@ const Edit = props => {
 
     useEffect(() => {
         setAttributes({ blockStyle: cssCustomProperties });
-    }, [iconBgColor, iconSize]);
+    }, [iconSize]);
 
     return (
         <Fragment>
