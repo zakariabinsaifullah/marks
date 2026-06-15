@@ -1,11 +1,11 @@
 import { __ } from '@wordpress/i18n';
 import { InspectorControls } from '@wordpress/block-editor';
-import { PanelBody, ToggleControl } from '@wordpress/components';
+import { PanelBody, ToggleControl, RangeControl } from '@wordpress/components';
 import { PanelColorControl } from '../../components';
 
 const Inspector = props => {
     const { attributes, setAttributes } = props;
-    const { headingColor, descriptionColor, tabLabelColor, tabLabelActiveColor, leftBgColor, showHeading, showDescription, showDivider } = attributes;
+    const { headingColor, descriptionColor, tabLabelColor, tabLabelActiveColor, leftBgColor, navMarginTop, showHeading, showDescription, showDivider } = attributes;
 
     return (
         <>
@@ -25,6 +25,15 @@ const Inspector = props => {
                         label={__('Show Divider', 'marks')}
                         checked={showDivider}
                         onChange={value => setAttributes({ showDivider: value })}
+                    />
+                </PanelBody>
+                <PanelBody title={__('Spacing', 'marks')} initialOpen={false}>
+                    <RangeControl
+                        label={__('Nav Margin Top (px)', 'marks')}
+                        value={navMarginTop ?? 32}
+                        onChange={value => setAttributes({ navMarginTop: value })}
+                        min={0}
+                        max={120}
                     />
                 </PanelBody>
             </InspectorControls>

@@ -17,7 +17,7 @@ const TEMPLATE = [
 
 const Edit = props => {
     const { attributes, setAttributes, clientId } = props;
-    const { uniqueId, heading, description, headingColor, descriptionColor, tabLabelColor, tabLabelActiveColor, leftBgColor, showHeading, showDescription, showDivider, blockStyle } = attributes;
+    const { uniqueId, heading, description, headingColor, descriptionColor, tabLabelColor, tabLabelActiveColor, leftBgColor, navMarginTop, showHeading, showDescription, showDivider, blockStyle } = attributes;
     const [activeTab, setActiveTab] = useState(0);
 
     const innerBlocks = useSelect(
@@ -47,12 +47,13 @@ const Edit = props => {
         ...(descriptionColor && { '--rt-desc-color': descriptionColor }),
         ...(tabLabelColor && { '--rt-label-color': tabLabelColor }),
         ...(tabLabelActiveColor && { '--rt-label-active-color': tabLabelActiveColor }),
-        ...(leftBgColor && { '--rt-left-bg': leftBgColor })
+        ...(leftBgColor && { '--rt-left-bg': leftBgColor }),
+        '--rt-nav-margin-top': `${navMarginTop ?? 32}px`
     };
 
     useEffect(() => {
         setAttributes({ blockStyle: cssCustomProperties });
-    }, [headingColor, descriptionColor, tabLabelColor, tabLabelActiveColor, leftBgColor]);
+    }, [headingColor, descriptionColor, tabLabelColor, tabLabelActiveColor, leftBgColor, navMarginTop]);
 
     const blockProps = useBlockProps({
         className: classNames('marks-remote-tabs', uniqueId),

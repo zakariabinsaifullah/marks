@@ -24,7 +24,7 @@
         }
 
         .remote-tabs-nav {
-            margin-top: 8px;
+            margin-top: var(--rt-nav-margin-top, 32px);
             display: flex;
             flex-direction: column;
 
