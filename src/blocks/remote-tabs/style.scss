@@ -2,54 +2,57 @@
     display: flex !important;
     flex-direction: row !important;
     align-items: stretch !important;
+    border: 1px solid #e8e0d0;
+    border-radius: 12px;
+    overflow: hidden;
 
     .remote-tabs-left {
-        width: 380px;
-        background: var(--rt-left-bg, #EDE8DC);
-        padding: 32px;
+        width: 320px;
+        background: var(--rt-left-bg, #ede8dc);
+        padding: 30px;
 
         .remote-tabs-heading {
-            color: var(--rt-heading-color, inherit);
+            color: var(--rt-heading-color);
         }
 
         .remote-tabs-description {
-            color: var(--rt-desc-color, inherit);
-            margin-top: 16px;
+            color: var(--rt-desc-color);
+            margin: 0;
         }
 
         .remote-tabs-divider {
             border: none;
-            border-top: 1px solid rgba(0, 0, 0, 0.15);
-            margin: 32px 0 0;
+            border-top: 1px solid #d9c281;
+            margin: 30px 0;
         }
 
         .remote-tabs-nav {
-            margin-top: 8px;
             display: flex;
             flex-direction: column;
 
             .remote-tab-btn {
                 background: none;
                 border: none;
-                border-left: 3px solid transparent;
-                padding: 14px 16px;
+                border-left: 2px solid transparent;
+                padding: 10px 16px;
+                line-height: 1.2;
                 text-align: left;
                 cursor: pointer;
-                font-size: 16px;
-                font-family: inherit;
-                color: var(--rt-label-color, inherit);
+                color: var(--rt-label-color, #3c3216);
                 opacity: 0.6;
-                transition: opacity 0.2s ease, border-color 0.2s ease;
+                font-size: var(--rt-label-font-size, 16px);
+                transition:
+                    opacity 0.2s ease,
+                    border-color 0.2s ease;
 
                 &:hover {
-                    opacity: 0.85;
+                    opacity: 0.6;
                 }
 
                 &.is-active {
-                    border-left-color: #A0863C;
-                    color: var(--rt-label-active-color, inherit);
+                    border-left-color: #a0863c;
+                    color: var(--rt-label-active-color, #3c3216);
                     opacity: 1;
-                    font-weight: 600;
                 }
             }
         }
@@ -65,7 +68,7 @@
         }
 
         @for $i from 0 through 9 {
-            &[data-active-tab="#{$i}"] > .wp-block-marks-remote-tab-item:not(:nth-child(#{$i + 1})) {
+            &[data-active-tab='#{$i}'] > .wp-block-marks-remote-tab-item:not(:nth-child(#{$i + 1})) {
                 display: none;
             }
         }

@@ -5,7 +5,8 @@ import { PanelColorControl } from '../../components';
 
 const Inspector = props => {
     const { attributes, setAttributes } = props;
-    const { headingColor, descriptionColor, tabLabelColor, tabLabelActiveColor, leftBgColor, showHeading, showDescription, showDivider } = attributes;
+    const { headingColor, descriptionColor, tabLabelColor, tabLabelActiveColor, leftBgColor, showHeading, showDescription, showDivider } =
+        attributes;
 
     return (
         <>

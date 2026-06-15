@@ -3,11 +3,10 @@
     "apiVersion": 3,
     "name": "marks/remote-tab-item",
     "version": "1.0.0",
-    "title": "Remote Tab Item",
+    "title": "Tab Item",
     "category": "marks-blocks",
     "parent": ["marks/remote-tabs"],
-    "icon": "star-filled",
-    "description": "Individual tab panel for the Remote Tabs block.",
+    "description": "Individual tab panel for the Marks Tabs block.",
     "example": {},
     "supports": {
         "anchor": false,

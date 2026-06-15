@@ -3,9 +3,8 @@
     "apiVersion": 3,
     "name": "marks/remote-tabs",
     "version": "1.0.0",
-    "title": "Remote Tabs",
+    "title": "Marks Tabs",
     "category": "marks-blocks",
-    "icon": "star-filled",
     "description": "Tabbed section with left navigation and right content panel.",
     "example": {},
     "supports": {
