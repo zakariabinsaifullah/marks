@@ -30,36 +30,38 @@ const Inspector = props => {
                 </PanelBody>
             </InspectorControls>
             <InspectorControls group="styles">
-                <PanelColorControl
-                    label={__('Colors', 'marks')}
-                    colorSettings={[
-                        {
-                            label: __('Heading', 'marks'),
-                            value: headingColor,
-                            onChange: color => setAttributes({ headingColor: color })
-                        },
-                        {
-                            label: __('Description', 'marks'),
-                            value: descriptionColor,
-                            onChange: color => setAttributes({ descriptionColor: color })
-                        },
-                        {
-                            label: __('Tab Label', 'marks'),
-                            value: tabLabelColor,
-                            onChange: color => setAttributes({ tabLabelColor: color })
-                        },
-                        {
-                            label: __('Tab Label Active', 'marks'),
-                            value: tabLabelActiveColor,
-                            onChange: color => setAttributes({ tabLabelActiveColor: color })
-                        },
-                        {
-                            label: __('Left Background', 'marks'),
-                            value: leftBgColor,
-                            onChange: color => setAttributes({ leftBgColor: color })
-                        }
-                    ]}
-                />
+                <PanelBody>
+                    <PanelColorControl
+                        label={__('Colors', 'marks')}
+                        colorSettings={[
+                            {
+                                label: __('Heading', 'marks'),
+                                value: headingColor,
+                                onChange: color => setAttributes({ headingColor: color })
+                            },
+                            {
+                                label: __('Description', 'marks'),
+                                value: descriptionColor,
+                                onChange: color => setAttributes({ descriptionColor: color })
+                            },
+                            {
+                                label: __('Tab Label', 'marks'),
+                                value: tabLabelColor,
+                                onChange: color => setAttributes({ tabLabelColor: color })
+                            },
+                            {
+                                label: __('Tab Label Active', 'marks'),
+                                value: tabLabelActiveColor,
+                                onChange: color => setAttributes({ tabLabelActiveColor: color })
+                            },
+                            {
+                                label: __('Left Background', 'marks'),
+                                value: leftBgColor,
+                                onChange: color => setAttributes({ leftBgColor: color })
+                            }
+                        ]}
+                    />
+                </PanelBody>
             </InspectorControls>
         </>
     );
