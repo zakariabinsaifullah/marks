@@ -4,18 +4,6 @@
 
     .swiper-slide {
         box-sizing: border-box;
-        position: relative;
-        overflow: hidden;
-        border-radius: 20px;
-        &:after {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(180deg, rgba(0, 0, 0, 0) 78.14%, rgba(201, 168, 76, 0.53) 100.67%);
-            content: '';
-        }
     }
 
     // Default "Adaptive" Equal Height behaviour
