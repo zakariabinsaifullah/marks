@@ -1,10 +1,10 @@
 (function () {
     'use strict';
 
-    var PANEL_ID   = 'insi-form-panel';
-    var OVERLAY_ID = 'insi-form-overlay';
+    var PANEL_ID   = 'marks-contact';
+    var OVERLAY_ID = 'marks-form-overlay';
     var OPEN_CLASS = 'is-open';
-    var LOCK_CLASS = 'insi-panel-open';
+    var LOCK_CLASS = 'marks-panel-open';
 
     var lastTrigger = null;
 
@@ -20,7 +20,7 @@
         document.body.classList.add( LOCK_CLASS );
         p.setAttribute( 'aria-hidden', 'false' );
 
-        var closeBtn = p.querySelector( '.insi-form-panel__close' );
+        var closeBtn = p.querySelector( '.marks-form-panel__close' );
         if ( closeBtn ) closeBtn.focus();
     }
 
@@ -37,7 +37,7 @@
         lastTrigger = null;
     }
 
-    // Trigger: <a href="#insi-form-panel"> or [data-open="insi-form-panel"]
+    // Trigger: <a href="#marks-contact"> or [data-open="marks-contact"]
     document.addEventListener( 'click', function ( e ) {
         var trigger = e.target.closest(
             'a[href="#' + PANEL_ID + '"], [data-open="' + PANEL_ID + '"]'
@@ -51,7 +51,7 @@
         }
 
         // Close button inside panel
-        if ( e.target.closest( '.insi-form-panel__close' ) ) {
+        if ( e.target.closest( '.marks-form-panel__close' ) ) {
             closePanel();
             return;
         }

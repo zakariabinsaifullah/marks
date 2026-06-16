@@ -98,6 +98,11 @@
                     "slug": "marks-firefly-darkest"
                 },
                 {
+                    "color": "#3C3216",
+                    "name": "Roti Darkest",
+                    "slug": "marks-roti-darkest"
+                },
+                {
                     "color": "#A0863C",
                     "name": "Roti Dark",
                     "slug": "marks-roti-dark"
