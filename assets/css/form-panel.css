@@ -164,3 +164,11 @@ body.marks-panel-open {
     background: #c9a84c !important;
     color: #fff !important;
 }
+
+label.gfield_label.gform-field-label {
+    flex-wrap: nowrap !important;
+}
+
+p.gform_required_legend {
+    display: none !important;
+}

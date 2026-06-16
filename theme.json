@@ -126,6 +126,11 @@
                     "color": "#F5EFE4",
                     "name": "Roti Lightest",
                     "slug": "marks-roti-lightest"
+                },
+                {
+                    "color": "#574506",
+                    "name": "Galliano Darker",
+                    "slug": "marks-galliano-darker"
                 }
             ]
         },

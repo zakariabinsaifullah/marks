@@ -21,6 +21,11 @@
     color: var(--wp--preset--color--marks-white);
 }
 
+a.wp-block-post-excerpt__more-link:hover {
+    background: #fff !important;
+    color: #000;
+}
+
 header.wp-block-kadence-rowlayout {
     position: relative;
 }
