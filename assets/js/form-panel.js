@@ -37,6 +37,34 @@
         lastTrigger = null;
     }
 
+    // ── Tab switching inside the panel ──────────────────────────────────────────
+    function initTabs() {
+        var p = panel();
+        if ( ! p ) return;
+
+        var tabs    = p.querySelector( '.marks-form-panel__tabs' );
+        var tabBtns = p.querySelectorAll( '.marks-form-panel__tab' );
+        var panels  = p.querySelectorAll( '.marks-form-panel__panel' );
+        if ( ! tabs || ! tabBtns.length || ! panels.length ) return;
+
+        tabBtns.forEach( function ( btn, i ) {
+            btn.addEventListener( 'click', function () {
+                activateTab( i );
+            } );
+        } );
+
+        function activateTab( index ) {
+            tabBtns.forEach( function ( b, j ) {
+                var active = ( j === index );
+                b.classList.toggle( 'is-active', active );
+                b.setAttribute( 'aria-selected', active ? 'true' : 'false' );
+                b.tabIndex = active ? 0 : -1;
+                if ( panels[ j ] ) panels[ j ].hidden = ! active;
+            } );
+            tabs.setAttribute( 'data-active-tab', String( index ) );
+        }
+    }
+
     // Trigger: <a href="#marks-contact"> or [data-open="marks-contact"]
     document.addEventListener( 'click', function ( e ) {
         var trigger = e.target.closest(
@@ -70,5 +98,7 @@
             closePanel();
         }
     } );
+
+    initTabs();
 
 })();

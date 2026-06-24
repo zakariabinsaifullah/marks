@@ -1,12 +1,17 @@
 <?php
 /**
- * Form Settings — admin page under Appearance menu.
+ * Contact Settings — admin page under Appearance menu.
  *
  * Options:
- *   marks_phone_number    – Phone Number
- *   marks_form_shortcode  – Form Shortcode
- *   marks_form_title      – Panel heading
- *   marks_form_description – Panel description paragraph
+ *   marks_phone_number          – Phone Number
+ *   marks_tab_contact_label     – Label for the "Contacts Us" tab
+ *   marks_tab_booking_label     – Label for the "Book a Call" tab
+ *   marks_form_title            – Contacts Us tab title (panel heading)
+ *   marks_form_description      – Contacts Us tab description paragraph
+ *   marks_form_shortcode        – Form Shortcode (rendered on Contacts Us tab)
+ *   marks_booking_title         – Book a Call tab title
+ *   marks_booking_description   – Book a Call tab description paragraph
+ *   marks_calendly_iframe       – Full <iframe> snippet rendered on Book a Call tab
  *
  * @package Marks_FSE
  */
@@ -43,13 +48,36 @@ function marks_form_panel_assets() {
 add_action( 'wp_footer', 'marks_form_panel_html' );
 
 function marks_form_panel_html() {
-	$phone       = get_option( 'marks_phone_number', '' );
-	$shortcode   = get_option( 'marks_form_shortcode', '' );
-	$title       = get_option( 'marks_form_title', 'Contact us' );
-	$description = get_option( 'marks_form_description', '' );
+	$phone              = get_option( 'marks_phone_number', '' );
+	$shortcode          = get_option( 'marks_form_shortcode', '' );
+	$title              = get_option( 'marks_form_title', 'Contact us' );
+	$description        = get_option( 'marks_form_description', '' );
+	$tab_contact_label  = get_option( 'marks_tab_contact_label', 'Contacts Us' );
+	$tab_booking_label  = get_option( 'marks_tab_booking_label', 'Book a Call with Us' );
+	$booking_title      = get_option( 'marks_booking_title', 'Book a Call with Us!' );
+	$booking_desc       = get_option( 'marks_booking_description', '' );
+	$calendly_iframe    = get_option( 'marks_calendly_iframe', '' );
 
-	// Don't render the panel if neither option is set.
-	if ( ! $phone && ! $shortcode ) {
+	// Allowed tags for sanitizing the Calendly iframe snippet on output.
+	$iframe_allowed_html = [
+		'iframe' => [
+			'src'             => [],
+			'width'           => [],
+			'height'          => [],
+			'style'           => [],
+			'frameborder'     => [],
+			'allow'           => [],
+			'allowfullscreen' => [],
+			'title'           => [],
+			'loading'         => [],
+			'referrerpolicy'  => [],
+		],
+	];
+
+	$panel_label = $title ? $title : __( 'Contact us', 'marks' );
+
+	// Don't render the panel if nothing to show.
+	if ( ! $phone && ! $shortcode && ! $title && ! $description && ! $booking_title && ! $booking_desc && ! $calendly_iframe ) {
 		return;
 	}
 	?>
@@ -60,7 +88,7 @@ function marks_form_panel_html() {
 		class="marks-form-panel"
 		role="dialog"
 		aria-modal="true"
-		aria-label="<?php echo esc_attr( $title ? $title : __( 'Contact us', 'marks' ) ); ?>"
+		aria-label="<?php echo esc_attr( $panel_label ); ?>"
 		aria-hidden="true"
 	>
 		<div class="marks-form-panel__header">
@@ -75,7 +103,7 @@ function marks_form_panel_html() {
 			<span></span>
 			<?php endif; ?>
 
-			<button class="marks-form-panel__close" aria-label="<?php esc_attr_e( 'Close form', 'marks' ); ?>">
+			<button class="marks-form-panel__close" aria-label="<?php esc_attr_e( 'Close contact panel', 'marks' ); ?>">
 				<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
 					<path d="M15 5L5 15M5 5L15 15" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
 				</svg>
@@ -83,23 +111,94 @@ function marks_form_panel_html() {
 		</div>
 
 		<div class="marks-form-panel__body">
-			<?php if ( $title ) : ?>
-				<h2 class="marks-form-panel__title"><?php echo esc_html( $title ); ?></h2>
-			<?php endif; ?>
+			<nav class="marks-form-panel__tabs" role="tablist" data-active-tab="0" aria-label="<?php esc_attr_e( 'Contact options', 'marks' ); ?>">
+				<button
+					type="button"
+					class="marks-form-panel__tab is-active"
+					role="tab"
+					aria-selected="true"
+					aria-controls="marks-tab-contact"
+					data-tab-index="0"
+				><?php echo esc_html( $tab_contact_label ); ?></button>
+				<button
+					type="button"
+					class="marks-form-panel__tab"
+					role="tab"
+					aria-selected="false"
+					aria-controls="marks-tab-booking"
+					data-tab-index="1"
+					tabindex="-1"
+				><?php echo esc_html( $tab_booking_label ); ?></button>
+			</nav>
 
-			<?php if ( $description ) : ?>
-				<p class="marks-form-panel__desc"><?php echo esc_html( $description ); ?></p>
-			<?php endif; ?>
+			<div class="marks-form-panel__panels">
+				<section
+					id="marks-tab-contact"
+					class="marks-form-panel__panel"
+					role="tabpanel"
+				>
+					<?php if ( $title ) : ?>
+						<h2 class="marks-form-panel__title"><?php echo esc_html( $title ); ?></h2>
+					<?php endif; ?>
 
-			<?php if ( $shortcode ) : ?>
-				<?php echo do_shortcode( $shortcode ); ?>
-			<?php endif; ?>
+					<?php if ( $description ) : ?>
+						<p class="marks-form-panel__desc"><?php echo esc_html( $description ); ?></p>
+					<?php endif; ?>
+
+					<?php if ( $shortcode ) : ?>
+						<?php echo do_shortcode( $shortcode ); ?>
+					<?php endif; ?>
+				</section>
+
+				<section
+					id="marks-tab-booking"
+					class="marks-form-panel__panel"
+					role="tabpanel"
+					hidden
+				>
+					<?php if ( $booking_title ) : ?>
+						<h2 class="marks-form-panel__title"><?php echo esc_html( $booking_title ); ?></h2>
+					<?php endif; ?>
+
+					<?php if ( $booking_desc ) : ?>
+						<p class="marks-form-panel__desc"><?php echo esc_html( $booking_desc ); ?></p>
+					<?php endif; ?>
+
+					<?php if ( $calendly_iframe ) : ?>
+						<div class="marks-form-panel__calendly">
+							<?php echo wp_kses( $calendly_iframe, $iframe_allowed_html ); ?>
+						</div>
+					<?php endif; ?>
+				</section>
+			</div>
 		</div>
 	</div>
 	<?php
 }
 
 // ── Register settings ──────────────────────────────────────────────────────────
+
+/**
+ * Sanitize the Calendly iframe option — strip everything except the
+ * <iframe> tag and a safe allowlist of its attributes.
+ */
+function marks_sanitize_iframe( $value ) {
+	$allowed = [
+		'iframe' => [
+			'src'             => [],
+			'width'           => [],
+			'height'          => [],
+			'style'           => [],
+			'frameborder'     => [],
+			'allow'           => [],
+			'allowfullscreen' => [],
+			'title'           => [],
+			'loading'         => [],
+			'referrerpolicy'  => [],
+		],
+	];
+	return wp_kses( (string) $value, $allowed );
+}
 
 add_action( 'admin_init', 'marks_form_register_settings' );
 
@@ -116,11 +215,21 @@ function marks_form_register_settings() {
 
 	register_setting(
 		'marks_form_group',
-		'marks_form_shortcode',
+		'marks_tab_contact_label',
 		[
 			'type'              => 'string',
 			'sanitize_callback' => 'sanitize_text_field',
-			'default'           => '',
+			'default'           => 'Contacts Us',
+		]
+	);
+
+	register_setting(
+		'marks_form_group',
+		'marks_tab_booking_label',
+		[
+			'type'              => 'string',
+			'sanitize_callback' => 'sanitize_text_field',
+			'default'           => 'Book a Call with Us',
 		]
 	);
 
@@ -143,6 +252,46 @@ function marks_form_register_settings() {
 			'default'           => '',
 		]
 	);
+
+	register_setting(
+		'marks_form_group',
+		'marks_form_shortcode',
+		[
+			'type'              => 'string',
+			'sanitize_callback' => 'sanitize_text_field',
+			'default'           => '',
+		]
+	);
+
+	register_setting(
+		'marks_form_group',
+		'marks_booking_title',
+		[
+			'type'              => 'string',
+			'sanitize_callback' => 'sanitize_text_field',
+			'default'           => 'Book a Call with Us!',
+		]
+	);
+
+	register_setting(
+		'marks_form_group',
+		'marks_booking_description',
+		[
+			'type'              => 'string',
+			'sanitize_callback' => 'sanitize_textarea_field',
+			'default'           => '',
+		]
+	);
+
+	register_setting(
+		'marks_form_group',
+		'marks_calendly_iframe',
+		[
+			'type'              => 'string',
+			'sanitize_callback' => 'marks_sanitize_iframe',
+			'default'           => '',
+		]
+	);
 }
 
 // ── Add menu page under Appearance ────────────────────────────────────────────
@@ -151,8 +300,8 @@ add_action( 'admin_menu', 'marks_form_add_menu' );
 
 function marks_form_add_menu() {
 	add_theme_page(
-		__( 'Form Settings', 'marks' ),
-		__( 'Form', 'marks' ),
+		__( 'Contact Settings', 'marks' ),
+		__( 'Contact', 'marks' ),
 		'manage_options',
 		'marks-form',
 		'marks_form_render_page'
@@ -167,7 +316,7 @@ function marks_form_render_page() {
 	}
 	?>
 	<div class="wrap">
-		<h1><?php esc_html_e( 'Form Settings', 'marks' ); ?></h1>
+		<h1><?php esc_html_e( 'Contact Settings', 'marks' ); ?></h1>
 
 		<?php settings_errors( 'marks_form_group' ); ?>
 
@@ -181,10 +330,10 @@ function marks_form_render_page() {
 			max-width: 600px;
 		">
 			<p style="margin: 0 0 8px; font-weight: 600; color: #1d2327;">
-				<?php esc_html_e( 'How to open this form panel', 'marks' ); ?>
+				<?php esc_html_e( 'How to open this contact panel', 'marks' ); ?>
 			</p>
 			<p style="margin: 0 0 10px; color: #3c434a; font-size: 13px;">
-				<?php esc_html_e( 'Add the following ID as the href value on any link or button to open the slide-in form:', 'marks' ); ?>
+				<?php esc_html_e( 'Add the following ID as the href value on any link or button to open the slide-in contact panel:', 'marks' ); ?>
 			</p>
 			<div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
 				<code id="marks-trigger-id" style="
@@ -244,8 +393,48 @@ function marks_form_render_page() {
 				</tr>
 				<tr>
 					<th scope="row">
+						<label for="marks_tab_contact_label">
+							<?php esc_html_e( 'Contacts Us Tab Label', 'marks' ); ?>
+						</label>
+					</th>
+					<td>
+						<input
+							type="text"
+							id="marks_tab_contact_label"
+							name="marks_tab_contact_label"
+							value="<?php echo esc_attr( get_option( 'marks_tab_contact_label', 'Contacts Us' ) ); ?>"
+							class="regular-text"
+							placeholder="<?php esc_attr_e( 'Contacts Us', 'marks' ); ?>"
+						/>
+						<p class="description">
+							<?php esc_html_e( 'Text shown on the first tab in the contact panel.', 'marks' ); ?>
+						</p>
+					</td>
+				</tr>
+				<tr>
+					<th scope="row">
+						<label for="marks_tab_booking_label">
+							<?php esc_html_e( 'Book a Call Tab Label', 'marks' ); ?>
+						</label>
+					</th>
+					<td>
+						<input
+							type="text"
+							id="marks_tab_booking_label"
+							name="marks_tab_booking_label"
+							value="<?php echo esc_attr( get_option( 'marks_tab_booking_label', 'Book a Call with Us' ) ); ?>"
+							class="regular-text"
+							placeholder="<?php esc_attr_e( 'Book a Call with Us', 'marks' ); ?>"
+						/>
+						<p class="description">
+							<?php esc_html_e( 'Text shown on the second tab in the contact panel.', 'marks' ); ?>
+						</p>
+					</td>
+				</tr>
+				<tr>
+					<th scope="row">
 						<label for="marks_form_title">
-							<?php esc_html_e( 'Form Title', 'marks' ); ?>
+							<?php esc_html_e( 'Contacts Us Tab Title', 'marks' ); ?>
 						</label>
 					</th>
 					<td>
@@ -258,14 +447,14 @@ function marks_form_render_page() {
 							placeholder="<?php esc_attr_e( 'Contact us', 'marks' ); ?>"
 						/>
 						<p class="description">
-							<?php esc_html_e( 'Heading displayed at the top of the slide-in panel.', 'marks' ); ?>
+							<?php esc_html_e( 'Heading shown on the Contacts Us tab.', 'marks' ); ?>
 						</p>
 					</td>
 				</tr>
 				<tr>
 					<th scope="row">
 						<label for="marks_form_description">
-							<?php esc_html_e( 'Form Description', 'marks' ); ?>
+							<?php esc_html_e( 'Contacts Us Tab Description', 'marks' ); ?>
 						</label>
 					</th>
 					<td>
@@ -277,7 +466,7 @@ function marks_form_render_page() {
 							placeholder="<?php esc_attr_e( 'We are here to help you...', 'marks' ); ?>"
 						><?php echo esc_textarea( get_option( 'marks_form_description', '' ) ); ?></textarea>
 						<p class="description">
-							<?php esc_html_e( 'Short paragraph shown below the title inside the panel.', 'marks' ); ?>
+							<?php esc_html_e( 'Short paragraph shown below the title on the Contacts Us tab.', 'marks' ); ?>
 						</p>
 					</td>
 				</tr>
@@ -297,6 +486,64 @@ function marks_form_render_page() {
 						/>
 						<p class="description">
 							<?php esc_html_e( 'Enter the shortcode, e.g. [gravityform id="1" title="false"]', 'marks' ); ?>
+						</p>
+					</td>
+				</tr>
+				<tr>
+					<th scope="row">
+						<label for="marks_booking_title">
+							<?php esc_html_e( 'Book a Call Title', 'marks' ); ?>
+						</label>
+					</th>
+					<td>
+						<input
+							type="text"
+							id="marks_booking_title"
+							name="marks_booking_title"
+							value="<?php echo esc_attr( get_option( 'marks_booking_title', 'Book a Call with Us!' ) ); ?>"
+							class="regular-text"
+							placeholder="<?php esc_attr_e( 'Book a Call with Us!', 'marks' ); ?>"
+						/>
+						<p class="description">
+							<?php esc_html_e( 'Heading shown on the Book a Call tab.', 'marks' ); ?>
+						</p>
+					</td>
+				</tr>
+				<tr>
+					<th scope="row">
+						<label for="marks_booking_description">
+							<?php esc_html_e( 'Book a Call Description', 'marks' ); ?>
+						</label>
+					</th>
+					<td>
+						<textarea
+							id="marks_booking_description"
+							name="marks_booking_description"
+							class="regular-text"
+							rows="4"
+							placeholder="<?php esc_attr_e( 'If you are looking for a team to help guide your next steps...', 'marks' ); ?>"
+						><?php echo esc_textarea( get_option( 'marks_booking_description', '' ) ); ?></textarea>
+						<p class="description">
+							<?php esc_html_e( 'Short paragraph shown below the title on the Book a Call tab.', 'marks' ); ?>
+						</p>
+					</td>
+				</tr>
+				<tr>
+					<th scope="row">
+						<label for="marks_calendly_iframe">
+							<?php esc_html_e( 'Calendly Iframe Code', 'marks' ); ?>
+						</label>
+					</th>
+					<td>
+						<textarea
+							id="marks_calendly_iframe"
+							name="marks_calendly_iframe"
+							class="large-text code"
+							rows="6"
+							placeholder='<iframe src="https://calendly.com/your-link" style="width:100%;min-width:320px;height:700px;" frameborder="0"></iframe>'
+						><?php echo esc_textarea( get_option( 'marks_calendly_iframe', '' ) ); ?></textarea>
+						<p class="description">
+							<?php esc_html_e( 'Paste the full <code>&lt;iframe&gt;</code> snippet provided by Calendly (or any other scheduling tool). Only the iframe tag and its safe attributes will be kept.', 'marks' ); ?>
 						</p>
 					</td>
 				</tr>
